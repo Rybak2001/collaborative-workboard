@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 require("dotenv").config({ path: ".env.local" });
 
 const BoardSchema = new mongoose.Schema(
@@ -19,8 +20,20 @@ const TaskSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+const UserSchema = new mongoose.Schema(
+  {
+    email: { type: String, unique: true },
+    passwordHash: String,
+    name: String,
+    role: { type: String, enum: ["admin", "member"], default: "member" },
+    active: { type: Boolean, default: true },
+  },
+  { timestamps: true }
+);
+
 const Board = mongoose.model("Board", BoardSchema);
 const Task = mongoose.model("Task", TaskSchema);
+const User = mongoose.model("User", UserSchema);
 
 async function seed() {
   await mongoose.connect(process.env.MONGODB_URI);
@@ -28,6 +41,18 @@ async function seed() {
 
   await Task.deleteMany({});
   await Board.deleteMany({});
+  await User.deleteMany({});
+
+  // Create users
+  const adminHash = await bcrypt.hash("admin123", 12);
+  const userHash = await bcrypt.hash("user123", 12);
+
+  await User.insertMany([
+    { email: "admin@workboard.com", passwordHash: adminHash, name: "Admin", role: "admin", active: true },
+    { email: "carlos@workboard.com", passwordHash: userHash, name: "Carlos García", role: "member", active: true },
+    { email: "maria@workboard.com", passwordHash: userHash, name: "María López", role: "member", active: true },
+  ]);
+  console.log("✅ Created 3 users (admin@workboard.com/admin123, carlos@workboard.com/user123)");
 
   const board = await Board.create({
     name: "Sprint 14 - Desarrollo",

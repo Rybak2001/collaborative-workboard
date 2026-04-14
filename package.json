@@ -10,6 +10,8 @@
     "db:seed": "node scripts/seed.js"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.3",
     "mongoose": "^8.9.5",
     "next": "14.2.21",
     "pusher": "^5.2.0",
@@ -18,6 +20,8 @@
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^22.10.5",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
