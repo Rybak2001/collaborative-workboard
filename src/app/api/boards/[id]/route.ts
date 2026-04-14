@@ -1,35 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
-import dbConnect from "@/lib/mongodb";
-import Board from "@/models/Board";
-import Task from "@/models/Task";
+import { boardStore, taskStore } from "@/lib/store";
 
 export async function GET(_req: NextRequest, { params }: { params: { id: string } }) {
-  await dbConnect();
-  const board = await Board.findById(params.id).lean();
+  const board = boardStore.findById(params.id);
   if (!board) return NextResponse.json({ error: "Not found" }, { status: 404 });
-
-  const tasks = await Task.find({ boardId: params.id }).sort({ order: 1 }).lean();
+  const tasks = taskStore.findByBoard(params.id);
   return NextResponse.json({ ...board, tasks });
 }
 
 export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
-  await dbConnect();
   const body = await req.json();
-
-  const board = await Board.findByIdAndUpdate(
-    params.id,
-    { name: body.name, description: body.description, columns: body.columns },
-    { new: true }
-  );
-
+  const board = boardStore.update(params.id, { name: body.name, description: body.description, columns: body.columns });
   if (!board) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json(board);
 }
 
 export async function DELETE(_req: NextRequest, { params }: { params: { id: string } }) {
-  await dbConnect();
-  await Task.deleteMany({ boardId: params.id });
-  const board = await Board.findByIdAndDelete(params.id);
+  taskStore.deleteByBoard(params.id);
+  const board = boardStore.delete(params.id);
   if (!board) return NextResponse.json({ error: "Not found" }, { status: 404 });
   return NextResponse.json({ message: "Deleted" });
 }
