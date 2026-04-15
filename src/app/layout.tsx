@@ -3,6 +3,7 @@ import Link from "next/link";
 import "./globals.css";
 import { AuthProvider } from "@/components/AuthProvider";
 import UserMenu from "@/components/UserMenu";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: "WorkBoard - Tablero Colaborativo",
@@ -14,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <body className="bg-slate-50 min-h-screen">
         <AuthProvider>
+          <Toaster position="top-right" toastOptions={{ style: { borderRadius: '12px', padding: '12px 16px', fontSize: '14px' } }} />
           <nav className="bg-slate-900 text-white sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
               <Link href="/" className="text-lg font-bold text-violet-400">
