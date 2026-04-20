@@ -1,5 +1,7 @@
 "use client";
 
+import { HiXMark } from "react-icons/hi2";
+
 interface Task {
   _id: string;
   title: string;
@@ -50,7 +52,7 @@ export default function TaskCard({
           onClick={() => onDelete(task._id)}
           className="text-slate-300 hover:text-red-500 text-xs ml-2 shrink-0"
         >
-          ✕
+          <HiXMark />
         </button>
       </div>
       {task.description && (

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { HiViewColumns } from "react-icons/hi2";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -27,7 +28,7 @@ export default function LoginPage() {
     <div className="min-h-[calc(100vh-56px)] flex items-center justify-center bg-gradient-to-br from-slate-100 to-violet-50 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
         <div className="text-center mb-6">
-          <div className="text-4xl mb-2">🗂️</div>
+          <div className="text-4xl mb-2 flex justify-center"><HiViewColumns /></div>
           <h1 className="text-2xl font-bold text-slate-900">Iniciar Sesión</h1>
           <p className="text-slate-500 text-sm">Accede a tus tableros</p>
         </div>

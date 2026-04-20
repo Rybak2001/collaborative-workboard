@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { HiChartBar, HiUsers, HiViewColumns, HiArrowLeft } from "react-icons/hi2";
 
 const links = [
-  { href: "/admin", label: "Dashboard", icon: "📊" },
-  { href: "/admin/users", label: "Usuarios", icon: "👥" },
-  { href: "/admin/boards", label: "Tableros", icon: "🗂️" },
-  { href: "/", label: "← Volver", icon: "" },
+  { href: "/admin", label: "Dashboard", icon: <HiChartBar className="inline" /> },
+  { href: "/admin/users", label: "Usuarios", icon: <HiUsers className="inline" /> },
+  { href: "/admin/boards", label: "Tableros", icon: <HiViewColumns className="inline" /> },
+  { href: "/", label: "Volver", icon: <HiArrowLeft className="inline" /> },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

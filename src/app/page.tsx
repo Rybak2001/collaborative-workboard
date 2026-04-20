@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { HiViewColumns, HiXMark } from "react-icons/hi2";
 
 interface Board {
   _id: string;
@@ -90,7 +91,7 @@ export default function HomePage() {
 
       {boards.length === 0 && !showCreate ? (
         <div className="text-center py-20 bg-white rounded-xl border border-slate-200">
-          <div className="text-6xl mb-4">🗂️</div>
+          <div className="text-6xl mb-4 flex justify-center"><HiViewColumns /></div>
           <p className="text-slate-400 text-lg mb-4">No tienes tableros aún</p>
           <button
             onClick={() => setShowCreate(true)}
@@ -116,7 +117,7 @@ export default function HomePage() {
                   onClick={() => deleteBoard(board._id)}
                   className="text-slate-300 hover:text-red-500 text-sm ml-2"
                 >
-                  ✕
+                  <HiXMark />
                 </button>
               </div>
               {board.description && (

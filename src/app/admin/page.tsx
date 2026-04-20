@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { HiViewColumns, HiClipboardDocumentList, HiUsers, HiExclamationTriangle } from "react-icons/hi2";
 
 interface Stats {
   totalBoards: number;
@@ -29,10 +30,10 @@ export default function AdminDashboard() {
   }
 
   const kpis = [
-    { label: "Tableros", value: stats.totalBoards, icon: "🗂️", color: "bg-violet-50 text-violet-700" },
-    { label: "Tareas", value: stats.totalTasks, icon: "📋", color: "bg-blue-50 text-blue-700" },
-    { label: "Usuarios", value: stats.totalUsers, icon: "👥", color: "bg-emerald-50 text-emerald-700" },
-    { label: "Urgentes", value: stats.tasksByPriority?.urgent || 0, icon: "🔴", color: "bg-red-50 text-red-700" },
+    { label: "Tableros", value: stats.totalBoards, icon: <HiViewColumns className="text-2xl" />, color: "bg-violet-50 text-violet-700" },
+    { label: "Tareas", value: stats.totalTasks, icon: <HiClipboardDocumentList className="text-2xl" />, color: "bg-blue-50 text-blue-700" },
+    { label: "Usuarios", value: stats.totalUsers, icon: <HiUsers className="text-2xl" />, color: "bg-emerald-50 text-emerald-700" },
+    { label: "Urgentes", value: stats.tasksByPriority?.urgent || 0, icon: <HiExclamationTriangle className="text-2xl" />, color: "bg-red-50 text-red-700" },
   ];
 
   const priorityColors: Record<string, string> = {
@@ -50,7 +51,7 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         {kpis.map((kpi) => (
           <div key={kpi.label} className={`rounded-xl p-5 ${kpi.color}`}>
-            <div className="text-2xl mb-1">{kpi.icon}</div>
+            <div className="mb-1">{kpi.icon}</div>
             <p className="text-3xl font-bold">{kpi.value}</p>
             <p className="text-sm opacity-70">{kpi.label}</p>
           </div>
@@ -105,7 +106,7 @@ export default function AdminDashboard() {
           <div className="divide-y divide-slate-100">
             {stats.recentBoards?.map((board) => (
               <div key={board._id} className="flex items-center justify-between py-3">
-                <span className="text-sm font-medium text-slate-900">🗂️ {board.name}</span>
+                <span className="text-sm font-medium text-slate-900 flex items-center gap-1"><HiViewColumns className="inline" /> {board.name}</span>
                 <span className="text-xs text-slate-400">{new Date(board.createdAt).toLocaleDateString("es")}</span>
               </div>
             ))}
